@@ -1,6 +1,7 @@
 package org.itchurch.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +22,7 @@ public class PlayState extends State {
     private Texture bg;
     private Texture ground;
     private Vector2 groundp1, groundp2;
+    private Music musicPlay;
 
     private Array<Tubes> tubes;
 
@@ -28,8 +30,11 @@ public class PlayState extends State {
         super(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
-        bg = new Texture("bg.jpg");
+        bg = new Texture("bg.png");
         ground = new Texture("ground.png");
+        musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
+        musicPlay.setVolume(0.005f);
+        musicPlay.play();
         groundp1 = new Vector2(camera.position.x - camera.viewportWidth / 2, gg);
         groundp2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), gg);
 
@@ -88,6 +93,7 @@ public class PlayState extends State {
         bg.dispose();
         bird.dispose();
         ground.dispose();
+        musicPlay.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
         System.out.println("Disposed");

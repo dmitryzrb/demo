@@ -35,12 +35,15 @@ public class Bird {
 
     public void update(float dt) {
         animation.update(dt);
-        if (position.y > 80)
+        if (position.y > 80 || position.y < 376)
             velosity.add(0, gravity, 0);
         velosity.scl(dt);
         position.add(move * dt, velosity.y, 0);
         if (position.y < 80) {
             position.y = 80;
+        }
+        if (position.y > 376){
+            position.y = 376;
         }
         velosity.scl(1 / dt);
         bBird.setPosition(position.x, position.y);
@@ -49,7 +52,7 @@ public class Bird {
     }
 
     public void jump() {
-        velosity.y = 250;
+        velosity.y = 350;
     }
 
     public Rectangle getbBird() {

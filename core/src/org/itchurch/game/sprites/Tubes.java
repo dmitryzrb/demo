@@ -66,6 +66,6 @@ public class Tubes {
     public void dispose() {
         Top.dispose();
         Bot.dispose();
-
+        groundp.dispose();
     }
 }
