@@ -65,7 +65,7 @@ public class Tubes {
     }
 
     public boolean collides(Rectangle player) {
-        if (player.overlaps(gapRect) && !passed) {
+        if (player.overlaps(gapRect)) {
             EndGameState.x++;
             passed = true;
         }
