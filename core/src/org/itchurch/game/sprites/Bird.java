@@ -12,19 +12,20 @@ public class Bird {
     private Vector3 position;
     private Vector3 velosity;
     private Rectangle bBird;
-    private Texture bird;
+    private Texture texture;
     private Animation animation;
+    private Texture Bird;
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velosity = new Vector3(0, 0, 0);
-        bird = new Texture("birdanimation.png");
-        animation = new Animation(new TextureRegion(bird), 3, 0.5f);
-        bBird = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+        texture = new Texture("birdanimation.png");
+        Bird = new Texture("bird.png");
+        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        bBird = new Rectangle(x, y, Bird.getWidth(), Bird.getHeight());
     }
 
     public Vector3 getPosition() {
-
         return position;
     }
 
@@ -34,12 +35,12 @@ public class Bird {
 
     public void update(float dt) {
         animation.update(dt);
-        if (position.y > 0)
+        if (position.y > 80)
             velosity.add(0, gravity, 0);
         velosity.scl(dt);
         position.add(move * dt, velosity.y, 0);
-        if (position.y < 0) {
-            position.y = 0;
+        if (position.y < 80) {
+            position.y = 80;
         }
         velosity.scl(1 / dt);
         bBird.setPosition(position.x, position.y);
@@ -56,7 +57,7 @@ public class Bird {
     }
 
     public void dispose() {
-        bird.dispose();
+        texture.dispose();
     }
 }
 

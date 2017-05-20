@@ -15,12 +15,13 @@ public class Tubes {
     public static final int botborder = 120;
     public static final int twidth = 52;
 
-    private Texture Top, Bot;
+    private Texture Top, Bot, groundp;
     private Vector2 posTop, posBot;
     private Random random;
-    private Rectangle bTop, bBot;
+    private Rectangle bTop, bBot, groundRect;
 
-    public Texture getTop(){
+
+    public Texture getTop() {
         return Top;
     }
 
@@ -36,9 +37,10 @@ public class Tubes {
         return posBot;
     }
 
-    public Tubes(float x){
+    public Tubes(float x) {
         Top = new Texture("toptube.png");
         Bot = new Texture("bottomtube.png");
+        groundp = new Texture("ground.png");
         random = new Random();
 
         posTop = new Vector2(x, random.nextInt(otklon) + gap + botborder);
@@ -46,22 +48,24 @@ public class Tubes {
 
         bTop = new Rectangle(posTop.x, posTop.y, Top.getWidth(), Top.getHeight());
         bBot = new Rectangle(posBot.x, posBot.y, Bot.getWidth(), Bot.getHeight());
+        groundRect = new Rectangle(0, -30, groundp.getWidth(), groundp.getHeight());
 
     }
 
-    public void reposition(float x){
+    public void reposition(float x) {
         posTop.set(x, random.nextInt(otklon) + gap + botborder);
         posBot.set(x, posTop.y - gap - Bot.getHeight());
         bTop.setPosition(posTop.x, posTop.y);
         bBot.setPosition(posBot.x, posBot.y);
     }
 
-    public boolean collides(Rectangle player){
-        return player.overlaps(bTop) || player.overlaps(bBot);
+    public boolean collides(Rectangle player) {
+        return player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
     }
 
     public void dispose() {
         Top.dispose();
         Bot.dispose();
+
     }
 }

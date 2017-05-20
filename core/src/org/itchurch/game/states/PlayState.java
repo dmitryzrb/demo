@@ -90,7 +90,7 @@ public class PlayState extends State {
         ground.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
-        System.out.println("PlayState Disposed");
+        System.out.println("Disposed");
     }
     private void groundGrade(){
         if (camera.position.x - (camera.viewportWidth / 2) > groundp1.x + ground.getWidth())
