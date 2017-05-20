@@ -14,9 +14,9 @@ import org.itchurch.game.sprites.Tubes;
 
 public class PlayState extends State {
 
-    private static final int space = 125;
+    private static final int space = 100;
     private static final int count = 4;
-    private static final int gg = -30; // граница земли не забыть
+    private static final int gg = -30;
 
     private Bird bird;
     private Texture bg;
@@ -33,7 +33,7 @@ public class PlayState extends State {
         bg = new Texture("bg.png");
         ground = new Texture("ground.png");
         musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
-        musicPlay.setVolume(0.005f);
+        musicPlay.setVolume(0.15f);
         musicPlay.play();
         groundp1 = new Vector2(camera.position.x - camera.viewportWidth / 2, gg);
         groundp2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), gg);
@@ -47,9 +47,9 @@ public class PlayState extends State {
 
     @Override
     protected void handle() {
-        if (Gdx.input.justTouched())
+        if (Gdx.input.justTouched()) {
             bird.jump();
-
+        }
     }
 
     @Override
@@ -58,15 +58,23 @@ public class PlayState extends State {
         bird.update(dt);
         groundGrade();
         camera.position.x = bird.getPosition().x + 80;
-
+        boolean tmp = false;
         for (int i = 0; i < tubes.size; i++) {
-
             Tubes tube = tubes.get(i);
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTop().x + tube.getTop().getWidth()) {
                 tube.reposition(tube.getPosTop().x + ((Tubes.twidth + space) * count));
             }
             if (tube.collides(bird.getbBird()))
-                gsm.set(new PlayState(gsm));
+                gsm.set(new EndGameState(gsm));
+            if (tube.passed == false) {
+                tmp = true;
+            }
+        }
+        if (!tmp) {
+            for (int i = 0; i < tubes.size; i++) {
+                Tubes tube = tubes.get(i);
+                tube.passed = false;
+            }
         }
         camera.update();
 
@@ -98,7 +106,8 @@ public class PlayState extends State {
             tube.dispose();
         System.out.println("PS Disposed");
     }
-    private void groundGrade(){
+
+    private void groundGrade() {
         if (camera.position.x - (camera.viewportWidth / 2) > groundp1.x + ground.getWidth())
             groundp1.add(ground.getWidth() * 2, 0);
         if (camera.position.x - (camera.viewportWidth / 2) > groundp2.x + ground.getWidth())

@@ -20,16 +20,17 @@ public class MenuState extends State {
         background = new Texture("bg.png");
         musicMenu = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
         musicMenu.setLooping(true);
-        musicMenu.setVolume(0.05f);
+        musicMenu.setVolume(0.15f);
         musicMenu.play();
         playBtn = new Texture("playbtn.png");
     }
 
     @Override
     public void handle() {
-        if (Gdx.input.justTouched())
+        if (Gdx.input.justTouched()) {
             gsm.set(new PlayState(gsm));
-
+            EndGameState.x = 0;
+        }
     }
 
     @Override

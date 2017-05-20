@@ -52,7 +52,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 315;
+        velocity.y = 265;
     }
 
     public Rectangle getbBird() {
