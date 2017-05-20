@@ -10,7 +10,7 @@ public class Bird {
     private static final int move = 100;
     private static final int gravity = -15;
     private Vector3 position;
-    private Vector3 velosity;
+    private Vector3 velocity;
     private Rectangle bBird;
     private Texture texture;
     private Animation animation;
@@ -18,10 +18,10 @@ public class Bird {
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
-        velosity = new Vector3(0, 0, 0);
+        velocity = new Vector3(0, 0, 0);
         texture = new Texture("birdanimation.png");
         Bird = new Texture("bird.png");
-        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        animation = new Animation(new TextureRegion(texture), 3, 0.2f);
         bBird = new Rectangle(x, y, Bird.getWidth(), Bird.getHeight());
     }
 
@@ -36,23 +36,23 @@ public class Bird {
     public void update(float dt) {
         animation.update(dt);
         if (position.y > 80 || position.y < 376)
-            velosity.add(0, gravity, 0);
-        velosity.scl(dt);
-        position.add(move * dt, velosity.y, 0);
+            velocity.add(0, gravity, 0);
+        velocity.scl(dt);
+        position.add(move * dt, velocity.y, 0);
         if (position.y < 80) {
             position.y = 80;
         }
-        if (position.y > 376){
+        if (position.y > 376) {
             position.y = 376;
         }
-        velosity.scl(1 / dt);
+        velocity.scl(1 / dt);
         bBird.setPosition(position.x, position.y);
 
 
     }
 
     public void jump() {
-        velosity.y = 350;
+        velocity.y = 315;
     }
 
     public Rectangle getbBird() {

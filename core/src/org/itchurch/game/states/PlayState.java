@@ -96,7 +96,7 @@ public class PlayState extends State {
         musicPlay.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
-        System.out.println("Disposed");
+        System.out.println("PS Disposed");
     }
     private void groundGrade(){
         if (camera.position.x - (camera.viewportWidth / 2) > groundp1.x + ground.getWidth())
