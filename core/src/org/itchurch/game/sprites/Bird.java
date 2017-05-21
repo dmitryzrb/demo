@@ -3,29 +3,31 @@ package org.itchurch.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
+
+import org.itchurch.game.states.EndGameState;
 
 
 public class Bird {
     private static final int move = 100;
     private static final int gravity = -15;
-    private Vector3 position;
-    private Vector3 velocity;
-    private Rectangle bBird;
+    private Vector2 position;
+    private Vector2 velocity;
+    public static Rectangle bBird;
     private Texture texture;
     private Animation animation;
     private Texture Bird;
 
     public Bird(int x, int y) {
-        position = new Vector3(x, y, 0);
-        velocity = new Vector3(0, 0, 0);
+        position = new Vector2(x + 5, y);
+        velocity = new Vector2(0, 0);
         texture = new Texture("birdanimation.png");
         Bird = new Texture("bird.png");
-        animation = new Animation(new TextureRegion(texture), 3, 0.2f);
+        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bBird = new Rectangle(x, y, Bird.getWidth(), Bird.getHeight());
     }
 
-    public Vector3 getPosition() {
+    public Vector2 getPosition() {
         return position;
     }
 
@@ -36,11 +38,14 @@ public class Bird {
     public void update(float dt) {
         animation.update(dt);
         if (position.y > 80 || position.y < 376)
-            velocity.add(0, gravity, 0);
+            velocity.add(0, gravity);
         velocity.scl(dt);
-        position.add(move * dt, velocity.y, 0);
+        position.add(move * dt, velocity.y);
         if (position.y < 80) {
             position.y = 80;
+        }
+        if (EndGameState.x * 173  <= (position.x - 138)){
+            EndGameState.x++;
         }
         if (position.y > 376) {
             position.y = 376;
@@ -52,7 +57,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 265;
+        velocity.y = 220;
     }
 
     public Rectangle getbBird() {
@@ -62,6 +67,8 @@ public class Bird {
     public void dispose() {
         texture.dispose();
     }
+
+
 }
 
 

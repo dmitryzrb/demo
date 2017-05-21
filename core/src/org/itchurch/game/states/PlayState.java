@@ -14,15 +14,15 @@ import org.itchurch.game.sprites.Tubes;
 
 public class PlayState extends State {
 
-    private static final int space = 100;
+    private static final int space = 120;
     private static final int count = 4;
     private static final int gg = -30;
 
     private Bird bird;
     private Texture bg;
-    private Texture ground;
     private Vector2 groundp1, groundp2;
     private Music musicPlay;
+    public static Texture ground;
 
     private Array<Tubes> tubes;
 
@@ -31,10 +31,13 @@ public class PlayState extends State {
         bird = new Bird(50, 300);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         bg = new Texture("bg.png");
-        ground = new Texture("ground.png");
         musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
         musicPlay.setVolume(0.15f);
+        musicPlay.setLooping(true);
         musicPlay.play();
+        EndGameState.first = new Texture("0.png");
+        EndGameState.second = new Texture("0.png");
+        ground = new Texture("ground.png");
         groundp1 = new Vector2(camera.position.x - camera.viewportWidth / 2, gg);
         groundp2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), gg);
 
@@ -58,7 +61,8 @@ public class PlayState extends State {
         bird.update(dt);
         groundGrade();
         camera.position.x = bird.getPosition().x + 80;
-        boolean tmp = false;
+        EndGameState.first = new Texture(EndGameState.names[EndGameState.x / 10]);
+        EndGameState.second = new Texture(EndGameState.names[EndGameState.x % 10]);
         for (int i = 0; i < tubes.size; i++) {
             Tubes tube = tubes.get(i);
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTop().x + tube.getTop().getWidth()) {
@@ -66,15 +70,7 @@ public class PlayState extends State {
             }
             if (tube.collides(bird.getbBird()))
                 gsm.set(new EndGameState(gsm));
-            if (tube.passed == false) {
-                tmp = true;
-            }
-        }
-        if (!tmp) {
-            for (int i = 0; i < tubes.size; i++) {
-                Tubes tube = tubes.get(i);
-                tube.passed = false;
-            }
+
         }
         camera.update();
 
@@ -87,11 +83,13 @@ public class PlayState extends State {
         sb.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0);
         sb.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         for (Tubes tube : tubes) {
-            sb.draw(tube.getTop(), tube.getPosBot().x, tube.getPosTop().y);
+            sb.draw(tube.getTop(), tube.getPosTop().x, tube.getPosTop().y);
             sb.draw(tube.getBot(), tube.getPosBot().x, tube.getPosBot().y);
         }
         sb.draw(ground, groundp1.x, groundp1.y);
         sb.draw(ground, groundp2.x, groundp2.y);
+        sb.draw(EndGameState.first, (camera.position.x - EndGameState.first.getWidth() / 2) - 15, camera.position.y + 150);
+        sb.draw(EndGameState.second, (camera.position.x - EndGameState.second.getWidth() / 2) + 15, camera.position.y + 150);
         sb.end();
 
     }
@@ -102,9 +100,10 @@ public class PlayState extends State {
         bird.dispose();
         ground.dispose();
         musicPlay.dispose();
+        EndGameState.first.dispose();
+        EndGameState.second.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
-        System.out.println("PS Disposed");
     }
 
     private void groundGrade() {

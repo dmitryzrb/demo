@@ -11,7 +11,7 @@ import org.itchurch.game.SnatchyBird;
 public class MenuState extends State {
 
     private Texture background;
-    private Texture playBtn;
+    public static Texture playBtn;
     private Music musicMenu;
 
     public MenuState(GameStateManager gsm) {
@@ -22,14 +22,14 @@ public class MenuState extends State {
         musicMenu.setLooping(true);
         musicMenu.setVolume(0.15f);
         musicMenu.play();
-        playBtn = new Texture("playbtn.png");
+        playBtn = new Texture("touch.png");
     }
 
     @Override
     public void handle() {
         if (Gdx.input.justTouched()) {
-            gsm.set(new PlayState(gsm));
             EndGameState.x = 0;
+            gsm.set(new PlayState(gsm));
         }
     }
 
@@ -43,7 +43,7 @@ public class MenuState extends State {
         spb.setProjectionMatrix(camera.combined);
         spb.begin();
         spb.draw(background, 0, 0);
-        spb.draw(playBtn, camera.position.x - playBtn.getWidth() / 2, camera.position.y);
+        spb.draw(playBtn, camera.position.x - playBtn.getWidth() / 2, camera.position.y + 30);
         spb.end();
 
     }
