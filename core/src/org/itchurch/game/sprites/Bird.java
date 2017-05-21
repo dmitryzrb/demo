@@ -1,5 +1,7 @@
 package org.itchurch.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,6 +19,7 @@ public class Bird {
     private Texture texture;
     private Animation animation;
     private Texture Bird;
+    public static Music scoreadd;
 
     public Bird(int x, int y) {
         position = new Vector2(x + 5, y);
@@ -44,8 +47,14 @@ public class Bird {
         if (position.y < 80) {
             position.y = 80;
         }
-        if (EndGameState.x * 173  <= (position.x - 138)){
+        if (EndGameState.x * 173 <= (position.x - 138)) {
             EndGameState.x++;
+            if (EndGameState.x >= 100){
+                EndGameState.x = 0;
+            }
+            scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
+            scoreadd.setVolume(0.15f);
+            scoreadd.play();
         }
         if (position.y > 376) {
             position.y = 376;
@@ -57,7 +66,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 220;
+        velocity.y = 270;
     }
 
     public Rectangle getbBird() {
@@ -67,8 +76,6 @@ public class Bird {
     public void dispose() {
         texture.dispose();
     }
-
-
 }
 
 

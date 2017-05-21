@@ -21,7 +21,7 @@ public class PlayState extends State {
     private Bird bird;
     private Texture bg;
     private Vector2 groundp1, groundp2;
-    private Music musicPlay;
+    public static Music musicPlay, wing;
     public static Texture ground;
 
     private Array<Tubes> tubes;
@@ -52,6 +52,10 @@ public class PlayState extends State {
     protected void handle() {
         if (Gdx.input.justTouched()) {
             bird.jump();
+            wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
+            wing.setVolume(0.15f);
+            wing.play();
+
         }
     }
 
@@ -99,9 +103,6 @@ public class PlayState extends State {
         bg.dispose();
         bird.dispose();
         ground.dispose();
-        musicPlay.dispose();
-        EndGameState.first.dispose();
-        EndGameState.second.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
     }

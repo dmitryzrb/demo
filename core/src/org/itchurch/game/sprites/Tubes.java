@@ -1,5 +1,7 @@
 package org.itchurch.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +23,7 @@ public class Tubes {
     private Vector2 posTop, posBot;
     private Random random;
     private Rectangle bTop, bBot, groundRect;
+    public static Music die;
 
 
     public Texture getTop() {
@@ -62,8 +65,13 @@ public class Tubes {
     }
 
     public boolean collides(Rectangle player) {
-        return player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
-
+        boolean w = player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
+        if (w) {
+            die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
+            die.setVolume(0.15f);
+            die.play();
+        }
+        return w;
     }
 
 

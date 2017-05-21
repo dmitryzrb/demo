@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.itchurch.game.SnatchyBird;
+import org.itchurch.game.sprites.Bird;
+import org.itchurch.game.sprites.Tubes;
 
 public class EndGameState extends State {
 
@@ -39,9 +41,10 @@ public class EndGameState extends State {
 
     @Override
     protected void handle() {
-        if (Gdx.input.justTouched())
+        if (Gdx.input.justTouched()) {
             gsm.set(new PlayState(gsm));
             x = 0;
+        }
     }
 
     @Override
@@ -67,7 +70,10 @@ public class EndGameState extends State {
     public void dispose() {
         background.dispose();
         nextBtn.dispose();
-        first.dispose();
-        second.dispose();
+        PlayState.musicPlay.dispose();
+        PlayState.wing.dispose();
+        Tubes.die.dispose();
+        Bird.scoreadd.dispose();
+
     }
 }
