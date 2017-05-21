@@ -51,11 +51,10 @@ public class PlayState extends State {
     @Override
     protected void handle() {
         if (Gdx.input.justTouched()) {
-            bird.jump();
             wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
             wing.setVolume(0.15f);
             wing.play();
-
+            bird.jump();
         }
     }
 

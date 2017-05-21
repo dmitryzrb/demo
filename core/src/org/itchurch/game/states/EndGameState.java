@@ -71,7 +71,9 @@ public class EndGameState extends State {
         background.dispose();
         nextBtn.dispose();
         PlayState.musicPlay.dispose();
+        PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
         PlayState.wing.dispose();
+        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
         Tubes.die.dispose();
         Bird.scoreadd.dispose();
 
