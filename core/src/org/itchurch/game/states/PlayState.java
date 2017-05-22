@@ -31,6 +31,7 @@ public class PlayState extends State {
         bird = new Bird(50, 300);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         bg = new Texture("bg.png");
+        musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
         musicPlay.setVolume(0.15f);
         musicPlay.setLooping(true);
         musicPlay.play();
@@ -70,8 +71,10 @@ public class PlayState extends State {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTop().x + tube.getTop().getWidth()) {
                 tube.reposition(tube.getPosTop().x + ((Tubes.twidth + space) * count));
             }
-            if (tube.collides(bird.getbBird()))
+            if (tube.collides(bird.getbBird())){
+                musicPlay.dispose();
                 gsm.set(new EndGameState(gsm));
+            }
 
         }
         camera.update();
@@ -101,7 +104,6 @@ public class PlayState extends State {
         bg.dispose();
         bird.dispose();
         ground.dispose();
-        musicPlay.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
     }

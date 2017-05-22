@@ -22,7 +22,7 @@ public class Bird {
     public static Music scoreadd;
 
     public Bird(int x, int y) {
-        position = new Vector2(x + 5, y);
+        position = new Vector2(x + 2, y);
         velocity = new Vector2(0, 0);
         texture = new Texture("birdanimation.png");
         Bird = new Texture("bird.png");
@@ -49,9 +49,10 @@ public class Bird {
         }
         if (EndGameState.x * 173 <= (position.x - 138)) {
             EndGameState.x++;
-            if (EndGameState.x >= 100){
+            if (EndGameState.x == 100){
                 EndGameState.x = 0;
             }
+            scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
             scoreadd.setVolume(0.15f);
             scoreadd.play();
         }
@@ -65,7 +66,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 305;
+        velocity.y = 269;
     }
 
     public Rectangle getbBird() {
