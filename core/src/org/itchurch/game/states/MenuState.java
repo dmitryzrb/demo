@@ -36,6 +36,7 @@ public class MenuState extends State {
         if (Gdx.input.justTouched()) {
             EndGameState.x = 0;
             gsm.set(new PlayState(gsm));
+            musicMenu.dispose();
         }
     }
 

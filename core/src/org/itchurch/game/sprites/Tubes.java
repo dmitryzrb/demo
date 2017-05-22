@@ -17,6 +17,7 @@ public class Tubes {
     public static final int gap = 100;
     public static final int botborder = 120;
     public static final int twidth = 52;
+    public static boolean w = false;
 
     private Texture Top, Bot;
 
@@ -46,6 +47,7 @@ public class Tubes {
         Top = new Texture("toptube.png");
         Bot = new Texture("bottomtube.png");
         random = new Random();
+        die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
 
 
         posTop = new Vector2(x, random.nextInt(otklon) + gap + botborder);
@@ -65,12 +67,7 @@ public class Tubes {
     }
 
     public boolean collides(Rectangle player) {
-        boolean w = player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
-        if (w) {
-            die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
-            die.setVolume(0.15f);
-            die.play();
-        }
+        w = player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
         return w;
     }
 

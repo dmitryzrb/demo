@@ -1,12 +1,13 @@
 package org.itchurch.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.itchurch.game.SnatchyBird;
-import org.itchurch.game.sprites.Bird;
 import org.itchurch.game.sprites.Tubes;
+
 
 public class EndGameState extends State {
 
@@ -15,6 +16,7 @@ public class EndGameState extends State {
 
     public static Texture first;
     public static Texture second;
+    public static Music egsMusic;
     public static int x = 0;
     public static String[] names = {
             "0.png",
@@ -35,10 +37,16 @@ public class EndGameState extends State {
         background = new Texture("bg.png");
         nextBtn = new Texture("playbtn.png");
         MenuState.playBtn = new Texture("touch.png");
-        MenuState.musicMenu = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
-        MenuState.musicMenu.setLooping(true);
-        MenuState.musicMenu.setVolume(0.15f);
-        MenuState.musicMenu.play();
+        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
+        Tubes.die.setVolume(0.15f);
+        Tubes.die.play();
+        MenuState.musicMenu.dispose();
+        PlayState.musicPlay.dispose();
+        egsMusic = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
+        egsMusic.setLooping(true);
+        egsMusic.setVolume(0.15f);
+        egsMusic.play();
+
         first = new Texture(names[x / 10]);
         second = new Texture(names[x % 10]);
     }
@@ -46,6 +54,7 @@ public class EndGameState extends State {
     @Override
     protected void handle() {
         if (Gdx.input.justTouched()) {
+            egsMusic.dispose();
             gsm.set(new PlayState(gsm));
             x = 0;
         }
@@ -74,10 +83,7 @@ public class EndGameState extends State {
     public void dispose() {
         background.dispose();
         nextBtn.dispose();
-        PlayState.wing.dispose();
         Tubes.die.dispose();
-        Bird.scoreadd.dispose();
-        MenuState.musicMenu.dispose();
-
+        egsMusic.dispose();
     }
 }

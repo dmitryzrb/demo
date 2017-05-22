@@ -32,6 +32,8 @@ public class PlayState extends State {
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         bg = new Texture("bg.png");
         MenuState.musicMenu.dispose();
+        Bird.scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
+        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
         musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
         musicPlay.setVolume(0.15f);
         musicPlay.setLooping(true);
@@ -72,16 +74,17 @@ public class PlayState extends State {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTop().x + tube.getTop().getWidth()) {
                 tube.reposition(tube.getPosTop().x + ((Tubes.twidth + space) * count));
             }
-            if (tube.collides(bird.getbBird())){
+            if (tube.collides(bird.getbBird())) {
                 musicPlay.dispose();
+                PlayState.wing.dispose();
+                Bird.scoreadd.dispose();
                 gsm.set(new EndGameState(gsm));
             }
 
         }
         camera.update();
-
     }
-
+s
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(camera.combined);
@@ -102,9 +105,19 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
+        if (EndGameState.egsMusic.isPlaying()) {
+            EndGameState.egsMusic.dispose();
+        }
+        if (Tubes.die.isPlaying()) {
+            Tubes.die.dispose();
+        }
         bg.dispose();
         bird.dispose();
         ground.dispose();
+        Bird.scoreadd.dispose();
+        Tubes.die.dispose();
+        musicPlay.dispose();
+        wing.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
     }
