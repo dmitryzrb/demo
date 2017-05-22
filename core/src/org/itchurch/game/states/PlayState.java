@@ -31,7 +31,6 @@ public class PlayState extends State {
         bird = new Bird(50, 300);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         bg = new Texture("bg.png");
-        musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
         musicPlay.setVolume(0.15f);
         musicPlay.setLooping(true);
         musicPlay.play();
@@ -102,6 +101,7 @@ public class PlayState extends State {
         bg.dispose();
         bird.dispose();
         ground.dispose();
+        musicPlay.dispose();
         for (Tubes tube : tubes)
             tube.dispose();
     }

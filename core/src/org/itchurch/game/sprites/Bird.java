@@ -52,7 +52,6 @@ public class Bird {
             if (EndGameState.x >= 100){
                 EndGameState.x = 0;
             }
-            scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
             scoreadd.setVolume(0.15f);
             scoreadd.play();
         }

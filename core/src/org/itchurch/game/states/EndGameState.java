@@ -35,6 +35,9 @@ public class EndGameState extends State {
         background = new Texture("bg.png");
         nextBtn = new Texture("playbtn.png");
         MenuState.playBtn = new Texture("touch.png");
+        MenuState.musicMenu.setLooping(true);
+        MenuState.musicMenu.setVolume(0.15f);
+        MenuState.musicMenu.play();
         first = new Texture(names[x / 10]);
         second = new Texture(names[x % 10]);
     }
@@ -70,12 +73,10 @@ public class EndGameState extends State {
     public void dispose() {
         background.dispose();
         nextBtn.dispose();
-        PlayState.musicPlay.dispose();
-        PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
         PlayState.wing.dispose();
-        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
         Tubes.die.dispose();
         Bird.scoreadd.dispose();
+        MenuState.musicMenu.dispose();
 
     }
 }

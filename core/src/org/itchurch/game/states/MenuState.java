@@ -7,17 +7,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.itchurch.game.SnatchyBird;
+import org.itchurch.game.sprites.Bird;
+import org.itchurch.game.sprites.Tubes;
 
 public class MenuState extends State {
 
     private Texture background;
     public static Texture playBtn;
-    private Music musicMenu;
+    public static Music musicMenu;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         background = new Texture("bg.png");
+        PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
+        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
+        PlayState.musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
+        Bird.scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
         musicMenu = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
         musicMenu.setLooping(true);
         musicMenu.setVolume(0.15f);
