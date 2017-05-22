@@ -61,8 +61,6 @@ public class Bird {
         }
         velocity.scl(1 / dt);
         bBird.setPosition(position.x, position.y);
-
-
     }
 
     public void jump() {

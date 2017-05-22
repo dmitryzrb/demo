@@ -35,6 +35,7 @@ public class EndGameState extends State {
         background = new Texture("bg.png");
         nextBtn = new Texture("playbtn.png");
         MenuState.playBtn = new Texture("touch.png");
+        MenuState.musicMenu = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
         MenuState.musicMenu.setLooping(true);
         MenuState.musicMenu.setVolume(0.15f);
         MenuState.musicMenu.play();
