@@ -20,11 +20,12 @@ public class MenuState extends State {
         super(gsm);
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         background = new Texture("bg.png");
-        PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
-        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
-        PlayState.musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
-        Bird.scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
         musicMenu = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
+        PlayState.musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
+        PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
+        EndGameState.egsMusic = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
+        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
+        Bird.scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
         musicMenu.setLooping(true);
         musicMenu.setVolume(0.15f);
         musicMenu.play();

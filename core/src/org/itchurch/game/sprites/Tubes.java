@@ -47,7 +47,6 @@ public class Tubes {
         Top = new Texture("toptube.png");
         Bot = new Texture("bottomtube.png");
         random = new Random();
-        die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
 
 
         posTop = new Vector2(x, random.nextInt(otklon) + gap + botborder);
@@ -70,7 +69,6 @@ public class Tubes {
         w = player.overlaps(bTop) || player.overlaps(bBot) || player.overlaps(groundRect);
         return w;
     }
-
 
     public void dispose() {
         Top.dispose();

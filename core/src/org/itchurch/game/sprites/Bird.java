@@ -48,13 +48,12 @@ public class Bird {
             position.y = 80;
         }
         if (EndGameState.x * 173 <= (position.x - 138)) {
-            EndGameState.x++;
-            if (EndGameState.x == 100){
-                EndGameState.x = 0;
-            }
-            scoreadd = Gdx.audio.newMusic(Gdx.files.internal("point.wav"));
             scoreadd.setVolume(0.15f);
             scoreadd.play();
+            EndGameState.x++;
+            if (EndGameState.x == 99){
+                EndGameState.x = 0;
+            }
         }
         if (position.y > 376) {
             position.y = 376;

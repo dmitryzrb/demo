@@ -33,20 +33,16 @@ public class EndGameState extends State {
 
     public EndGameState(GameStateManager gsm) {
         super(gsm);
+        if (!egsMusic.isPlaying()) {
+            egsMusic = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
+            egsMusic.setLooping(true);
+            egsMusic.setVolume(0.15f);
+            egsMusic.play();
+        }
         camera.setToOrtho(false, SnatchyBird.WIDTH / 2, SnatchyBird.HEIGHT / 2);
         background = new Texture("bg.png");
         nextBtn = new Texture("playbtn.png");
         MenuState.playBtn = new Texture("touch.png");
-        Tubes.die = Gdx.audio.newMusic(Gdx.files.internal("die.wav"));
-        Tubes.die.setVolume(0.15f);
-        Tubes.die.play();
-        MenuState.musicMenu.dispose();
-        PlayState.musicPlay.dispose();
-        egsMusic = Gdx.audio.newMusic(Gdx.files.internal("8bitmk.mp3"));
-        egsMusic.setLooping(true);
-        egsMusic.setVolume(0.15f);
-        egsMusic.play();
-
         first = new Texture(names[x / 10]);
         second = new Texture(names[x % 10]);
     }
@@ -55,6 +51,8 @@ public class EndGameState extends State {
     protected void handle() {
         if (Gdx.input.justTouched()) {
             egsMusic.dispose();
+            PlayState.musicPlay = Gdx.audio.newMusic(Gdx.files.internal("8bitgame.mp3"));
+            PlayState.wing = Gdx.audio.newMusic(Gdx.files.internal("wing.wav"));
             gsm.set(new PlayState(gsm));
             x = 0;
         }
@@ -83,7 +81,5 @@ public class EndGameState extends State {
     public void dispose() {
         background.dispose();
         nextBtn.dispose();
-        Tubes.die.dispose();
-        egsMusic.dispose();
     }
 }
